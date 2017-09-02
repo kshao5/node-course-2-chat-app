@@ -9,8 +9,8 @@ const port = process.env.PORT || 3000;
 
 var app = express();
 app.use(express.static(publicPath));
-app.listen(3000, function(){
-	console.log("server is up on ${port}");
+app.listen(port, function(){
+	console.log("server is up on ", port);
 })
 // displays current directory
 //console.log(__dirname + "/../public");
