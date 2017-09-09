@@ -35,13 +35,30 @@ io.on("connection" ,function(socket){
 //		console.log('createEmail', newEmail);
 //	});
 	
+	socket.emit('newMessage', {
+		from: "Admin",
+		text: "Welcome to the chat app"
+	});
+	
+	socket.broadcast.emit("newMessage", {
+		from: "Admin",
+		text: "User has joined"
+	});
+	
 	socket.on('createMessage', function(newMessage){
 		console.log("new message", newMessage);
-		io.emit("newMessage", {
-			from: newMessage.from,
-			text: newMessage.text,
-			createdAt: new Date().getTime()
-		});
+		// send new message to every body
+//		io.emit("newMessage", {
+//			from: newMessage.from,
+//			text: newMessage.text,
+//			createdAt: new Date().getTime()
+//		});
+		// send new message to everyone except for the sender
+//		socket.broadcast.emit("newMessage", {
+//			from: newMessage.from,
+//			text: newMessage.text,
+//			createdAt : new Date().getTime()
+//		});
 	});
 	
 //	socket.emit("newMessage", {
