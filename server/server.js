@@ -23,6 +23,28 @@ app.use(express.static(publicPath));
 io.on("connection" ,function(socket){
 	// any time a user comes in, this message will be printed
 	console.log("new user connected");
+	
+	// creating the event, second argument is the data for the email, so that we can send custom data, data will be sent from server to the client
+//	socket.emit('newEmail', {
+//		from: "Mike@example.com",
+//		text: "nice to meet you",
+//		createAt: 123
+//	});
+	
+//	socket.on('createEmail', function(newEmail){
+//		console.log('createEmail', newEmail);
+//	});
+	
+//	socket.on('createMessage', function(newMessage){
+//		console.log("new message", newMessage);
+//	});
+	
+	socket.emit("newMessage", {
+		from: "Jonny",
+		text: "Where to eat today",
+		createdAt: 123123
+	});
+	
 	socket.on("disconnect", function(){
 		console.log("user is disconnected");
 	});
