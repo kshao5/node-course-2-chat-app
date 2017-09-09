@@ -35,15 +35,20 @@ io.on("connection" ,function(socket){
 //		console.log('createEmail', newEmail);
 //	});
 	
-//	socket.on('createMessage', function(newMessage){
-//		console.log("new message", newMessage);
-//	});
-	
-	socket.emit("newMessage", {
-		from: "Jonny",
-		text: "Where to eat today",
-		createdAt: 123123
+	socket.on('createMessage', function(newMessage){
+		console.log("new message", newMessage);
+		io.emit("newMessage", {
+			from: newMessage.from,
+			text: newMessage.text,
+			createdAt: new Date().getTime()
+		});
 	});
+	
+//	socket.emit("newMessage", {
+//		from: "Jonny",
+//		text: "Where to eat today",
+//		createdAt: 123123
+//	});
 	
 	socket.on("disconnect", function(){
 		console.log("user is disconnected");
