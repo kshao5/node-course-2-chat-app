@@ -4,6 +4,7 @@ const path = require('path');
 const http = require('http');
 // load express
 const express = require('express');
+const generateMessage = require('./utils/message');
 
 const socketIO = require('socket.io');
 // address passed to the express middleware
@@ -35,18 +36,23 @@ io.on("connection" ,function(socket){
 //		console.log('createEmail', newEmail);
 //	});
 	
-	socket.emit('newMessage', {
-		from: "Admin",
-		text: "Welcome to the chat app"
-	});
+//	socket.emit('newMessage', {
+//		from: "Admin",
+//		text: "Welcome to the chat app"
+//	});
+//	
+//	socket.broadcast.emit("newMessage", {
+//		from: "Admin",
+//		text: "User has joined"
+//	});
 	
-	socket.broadcast.emit("newMessage", {
-		from: "Admin",
-		text: "User has joined"
-	});
+	socket.emit("newMessage", generateMessage("Admin", "welcome to the chat app"));
+	socket.broadcast.emit("newMessage", generateMessage("Admin", "new user joined"));
 	
 	socket.on('createMessage', function(newMessage){
 		console.log("new message", newMessage);
+		
+		io.emit("newMessage", generateMessage(newMessage.from, newMessage.text));
 		// send new message to every body
 //		io.emit("newMessage", {
 //			from: newMessage.from,
