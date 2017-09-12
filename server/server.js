@@ -4,7 +4,8 @@ const path = require('path');
 const http = require('http');
 // load express
 const express = require('express');
-const generateMessage = require('./utils/message');
+const generateMessage = require('./utils/message.js');
+const generateLocationMessage = require('./utils/message.js');
 
 const socketIO = require('socket.io');
 // address passed to the express middleware
@@ -68,6 +69,10 @@ io.on("connection" ,function(socket){
 //			text: newMessage.text,
 //			createdAt : new Date().getTime()
 //		});
+	});
+	
+	socket.on("createLocationMessage", function(coords){
+		io.emit("newLocationMessage", generateLocationMessage("Admin", coords.latitude, coords.longitude));
 	});
 	
 //	socket.emit("newMessage", {
