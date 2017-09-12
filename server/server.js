@@ -4,8 +4,8 @@ const path = require('path');
 const http = require('http');
 // load express
 const express = require('express');
-const generateMessage = require('./utils/message.js');
-const generateLocationMessage = require('./utils/message.js');
+const {generateMessage} = require('./utils/message.js');
+const {generateLocationMessage} = require('./utils/message.js');
 
 const socketIO = require('socket.io');
 // address passed to the express middleware
@@ -56,7 +56,7 @@ io.on("connection" ,function(socket){
 		
 		io.emit("newMessage", generateMessage(newMessage.from, newMessage.text));
 		// execute callback function in index.js
-		callback("this is sent from server");
+		callback();
 		// send new message to every body
 //		io.emit("newMessage", {
 //			from: newMessage.from,
