@@ -3,7 +3,7 @@ var generateMessage = (function(from, text){
 		from, 
 		text,
 		createdAt: new Date().getTime()
-	};
+	}
 });
 
 var generateLocationMessage = (function(from, latitude, longitude){
@@ -13,5 +13,5 @@ var generateLocationMessage = (function(from, latitude, longitude){
 		createdAt: new Date().getTime()
 	}
 });
-module.exports = generateMessage;
-module.exports = generateLocationMessage;
+module.exports = generateMessage, generateLocationMessage;
+//module.exports = generateLocationMessage;
