@@ -49,10 +49,13 @@ io.on("connection" ,function(socket){
 	socket.emit("newMessage", generateMessage("Admin", "welcome to the chat app"));
 	socket.broadcast.emit("newMessage", generateMessage("Admin", "new user joined"));
 	
-	socket.on('createMessage', function(newMessage){
+	// callback is the function to be executed when we acknowledge we got the request at client
+	socket.on('createMessage', function(newMessage, callback){
 		console.log("new message", newMessage);
 		
 		io.emit("newMessage", generateMessage(newMessage.from, newMessage.text));
+		// execute callback function in index.js
+		callback("this is sent from server");
 		// send new message to every body
 //		io.emit("newMessage", {
 //			from: newMessage.from,

@@ -26,12 +26,37 @@ socket.on("connect", function(){
 socket.on('disconnect', function(){
    console.log("disconnected from server");
 });
+
 socket.on("newMessage", function(newMessage){
 	console.log("newMessage", newMessage);
+	var li = jQuery('<li></li>');
+	li.text(newMessage.from + ":" + newMessage.text);
+	$("#messages").append(li);
 });
+
+//socket.emit("createMessage", {
+//	from: "Frank",
+//	text: "Hi"
+//	// function to be executed when acknowledgement has been sent from server to the client
+//}, function(data){
+//	// our data went successfully from client to the server
+//	console.log("got it", data);
+//});
 // custom event, function will execute when event happens
 socket.on('newEmail', function(email){
 	console.log("new Email", email);
+});
+
+$("#message-form").on("submit", function(e){
+	// prevent default behavior for the event
+	e.preventDefault();
+	
+	socket.emit("createMessage", {
+		from: 'User',
+		text: jQuery('[name = message]').val()
+	}, function(){
+		
+	});
 });
 
 	
